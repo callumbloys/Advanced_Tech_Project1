@@ -4,6 +4,7 @@
 #include <optional>
 #include "Graphics.h"
 #include <memory>
+#include "Mouse.h"
 
 class Window
 {
@@ -30,6 +31,7 @@ public:
 	void SetTitle(const std::string& title);
 	static std::optional<int> ProcessMessages();
 	Graphics& Gfx();
+	Mouse mouse;
 private:
 	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
