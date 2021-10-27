@@ -17,10 +17,10 @@ Graphics::Graphics(HWND hWnd)
 	sd.BufferDesc.RefreshRate.Denominator = 0;
 	sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 	sd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-	sd.SampleDesc.Count = 1;
-	sd.SampleDesc.Quality = 0;
+	sd.SampleDesc.Count = 1u;
+	sd.SampleDesc.Quality = 0u;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	sd.BufferCount = 1;
+	sd.BufferCount = 1u;
 	sd.OutputWindow = hWnd;
 	sd.Windowed = TRUE;
 	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
@@ -65,8 +65,12 @@ void Graphics::DrawTestTriangle()
 	const Vertex Vertices[] =
 	{
 		{ 0.0f, 0.5f },
-		{ 0.5f, 0.5f },
+		{ 0.5f, -0.5f },
 		{ -0.5f, -0.5f },
+
+		{0.5f, 1.0f},
+		{1.0f, 0.5f},
+		{0.5f, 0.5f},
 	};
 
 	wrl::ComPtr<ID3D11Buffer> pVertexBuffer;
@@ -85,7 +89,6 @@ void Graphics::DrawTestTriangle()
 	const UINT stride = sizeof(Vertex);
 	const UINT offset = 0u;
 	pContext->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
-	pContext->Draw(3u, 0u);
 
 	wrl::ComPtr<ID3D11PixelShader> pPixelShader;
 	wrl::ComPtr<ID3DBlob> pBlob;
@@ -105,7 +108,7 @@ void Graphics::DrawTestTriangle()
 	wrl::ComPtr<ID3D11InputLayout> pInputLayout;
 	const D3D11_INPUT_ELEMENT_DESC ied[] =
 	{
-		{"position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{"Position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
 	};
 
 	pDevice->CreateInputLayout(
@@ -117,7 +120,7 @@ void Graphics::DrawTestTriangle()
 
 	pContext->IASetInputLayout(pInputLayout.Get());
 
-	pContext->OMSetRenderTargets(1u, &pTarget, nullptr);
+	pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), nullptr);
 
 	pContext->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
@@ -131,4 +134,10 @@ void Graphics::DrawTestTriangle()
 	pContext->RSSetViewports(1u, &vp);
 
 	pContext->Draw((UINT)std::size(Vertices),0u);
+}
+
+void Graphics::ClearBuffer(float red, float green, float blue) noexcept
+{
+	const float color[] = { red, green, blue, 1.0f };
+	pContext->ClearRenderTargetView(pTarget.Get(), color);
 }
