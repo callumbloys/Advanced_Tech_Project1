@@ -15,7 +15,7 @@ Window::WindowClass::WindowClass() noexcept
 	wc.hInstance = GetInstance();
 	wc.hIcon = nullptr;
 	wc.hCursor = nullptr;
-	wc.hbrBackground = (HBRUSH)(CreateSolidBrush(RGB(0,0,46)));
+	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
 	wc.lpszClassName = GetName();
 	wc.hIconSm = nullptr;
@@ -63,7 +63,7 @@ Window::Window(int width, int height, const char* name) noexcept
 {
 	RECT wr;
 	wr.left = 100;
-	wr.right = width + +wr.left;
+	wr.right = width + wr.left;
 	wr.top = 100;
 	wr.bottom = height + wr.top;
 	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
@@ -105,14 +105,79 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 {
 	switch (msg)
 	{
-	case WM_CLOSE:
-		PostQuitMessage(0);
-		return 0;
-	case WM_MOUSEMOVE:
+		case WM_CLOSE:
+		{
+			PostQuitMessage(0);
+			return 0;
+		}
+		case WM_MOUSEMOVE:
+		{
+			const POINTS pt = MAKEPOINTS(lParam);
+			mouse.OnMouseMove(pt.x, pt.y);
+
+			/*if (pt.x >= 0 && pt.x < width && pt.y >= 0 && pt.y < height)
+			{
+				mouse.OnMouseMove(pt.x,pt.y);
+				if (!mouse.IsInWindow())
+				{
+					SetCapture(hWnd);
+					mouse.OnMouseEnter();
+				}
+			}
+			else
+			{
+				if (wParam & (MK_LBUTTON | MK_RBUTTON))
+				{
+					mouse.OnMouseMove(pt.x, pt.y);
+				}
+				else
+				{
+					ReleaseCapture();
+					mouse.OnMouseLeave();
+				}
+			}
+
+			mouse.OnMouseMove(pt.x, pt.y);
+			break;*/
+		}
+	/*case WM_LBUTTONDOWN:
 	{
-		POINTS pt = MAKEPOINTS(lParam);
-		mouse.OnMouseMove(pt.x, pt.y);
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnLeftPressed(pt.x, pt.y);
+		break;
 	}
+	case WM_RBUTTONDOWN:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnRightPressed(pt.x, pt.y);
+		break;
 	}
-	return DefWindowProc(hWnd, msg ,wParam, lParam);
+	case WM_LBUTTONUP:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnLeftReleased(pt.x, pt.y);
+		break;
+	}
+	case WM_RBUTTONUP:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnRightReleased(pt.x, pt.y);
+		break;
+	}
+	case WM_MOUSEWHEEL:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
+		{
+			mouse.OnWheelUp(pt.x, pt.y);
+		}
+		else if (GET_WHEEL_DELTA_WPARAM(wParam) < 0)
+		{
+			mouse.OnWheelDown(pt.x, pt.y);
+		}
+		break;
+	}
+	}*/
+	}
+	return DefWindowProc(hWnd, msg, wParam, lParam);
 }

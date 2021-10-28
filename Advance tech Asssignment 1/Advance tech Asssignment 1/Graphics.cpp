@@ -131,8 +131,8 @@ void Graphics::DrawTestTriangle(float angle, float x, float y)
 		{
 			dx::XMMatrixTranspose(
 				dx::XMMatrixRotationZ(angle) *
-				dx::XMMatrixScaling(3.0f / 4.0f,1.0f,1.0f) *
-				dx::XMMatrixTranslation(3.0f / 4.0f,1.0f,0.0f)
+				dx::XMMatrixScaling(3.0f / 4.0f,1.0f,1.0f) /**
+				dx::XMMatrixTranslation(3.0f / 4.0f,1.0f,0.0f)*/
 			)
 		}
 	};
@@ -186,6 +186,7 @@ void Graphics::DrawTestTriangle(float angle, float x, float y)
 
 	pContext->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
+	// configure viewport
 	D3D11_VIEWPORT vp;
 	vp.Width = 800;
 	vp.Height = 600;
