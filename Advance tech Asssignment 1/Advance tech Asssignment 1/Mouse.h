@@ -45,6 +45,10 @@ public:
             x(parent.x),
             y(parent.y)
         {}
+        bool IsValid() const noexcept
+        {
+            return type != Type::Invalid;
+        }
         Type GetType() const noexcept
         {
             return type;
