@@ -9,6 +9,7 @@ class App
 public:
 	App();
 	int Go();
+	Mouse mouse;
 private:
 	void DoFrame();
 private:
