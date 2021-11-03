@@ -3,7 +3,7 @@
 
 App::App()
 	:
-	wnd(800,600,"Project Window")
+	wnd(800,600,"Callum Bloys: Project Window")
 {}
 
 int App::Go()
