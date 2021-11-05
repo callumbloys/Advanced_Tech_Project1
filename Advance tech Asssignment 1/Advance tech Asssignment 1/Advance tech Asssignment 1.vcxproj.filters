@@ -62,4 +62,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Level1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

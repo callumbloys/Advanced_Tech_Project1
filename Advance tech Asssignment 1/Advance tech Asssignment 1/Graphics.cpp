@@ -93,7 +93,7 @@ void Graphics::ClearBuffer(float red, float green, float blue) noexcept
 	pContext->ClearDepthStencilView(pDSV.Get(),D3D11_CLEAR_DEPTH,1.0f,0u);
 }
 
-void Graphics::DrawTestTriangle(float angle, float x, float z)
+void Graphics::DrawTestTriangle(float angle, float x, float y, float z)
 {
 
 	HRESULT hr;
@@ -168,8 +168,8 @@ void Graphics::DrawTestTriangle(float angle, float x, float z)
 			dx::XMMatrixTranspose(
 			   dx::XMMatrixRotationZ(angle)*
 			   dx::XMMatrixRotationX(angle)*
-			   dx::XMMatrixTranslation(x,0.0f, z + 4.0f)*
-			   dx::XMMatrixPerspectiveLH(1.0f,3.0f / 4.0f,0.5f,10.0f)
+			   dx::XMMatrixTranslation(x, y ,z + 4.0f)*
+			   dx::XMMatrixPerspectiveLH(1.0f,3.0f / 4.0f,0.5f,50.0f)
 			)
 		}
 	};
