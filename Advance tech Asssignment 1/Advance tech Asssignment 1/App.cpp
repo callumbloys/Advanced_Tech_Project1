@@ -43,17 +43,17 @@ void App::DoFrame()
 
 	while (!map.eof())
 	{
-		row++;
-		if (row == 37)
-		{
+		row++; 
+		if (row == 31)
+		{ 
 			column--;
 			row = 0;
 		}
-
+		
 		if (map.get() == wall)
 		{
-			wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 8.0f, column * 2 + 3.0f, 5.0f);
-			wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 8.0f, column * 2 + 3.0f, 6.9f);
+			wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 30.0f, column * 1.9 + 11.0f, 28.0f);
+			wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 30.0f, column * 1.9 + 11.0f, 29.9f);
 		}
 	}
 
