@@ -108,40 +108,31 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 {
 	switch (msg)
 	{
+	
+
 		case WM_CLOSE:
 		{
 			PostQuitMessage(0);
 			return 0;
 		}
+		case WM_KEYDOWN:
+		// stifle this keyboard message if imgui wants to capture
+		if (!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled()) // filter autorepeat
+		{
+			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+		}
+		break;
+		case WM_KEYUP:
+		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
+		break;
+	case WM_CHAR:
+		// stifle this keyboard message if imgui wants to capture
+		kbd.OnChar(static_cast<unsigned char>(wParam));
+		break;
 		case WM_MOUSEMOVE:
 		{
 			const POINTS pt = MAKEPOINTS(lParam);
 			mouse.OnMouseMove(pt.x, pt.y);
-
-			/*if (pt.x >= 0 && pt.x < width && pt.y >= 0 && pt.y < height)
-			{
-				mouse.OnMouseMove(pt.x,pt.y);
-				if (!mouse.IsInWindow())
-				{
-					SetCapture(hWnd);
-					mouse.OnMouseEnter();
-				}
-			}
-			else
-			{
-				if (wParam & (MK_LBUTTON | MK_RBUTTON))
-				{
-					mouse.OnMouseMove(pt.x, pt.y);
-				}
-				else
-				{
-					ReleaseCapture();
-					mouse.OnMouseLeave();
-				}
-			}
-
-			mouse.OnMouseMove(pt.x, pt.y);
-			break;*/
 		}
 		case WM_LBUTTONDOWN:
 		{

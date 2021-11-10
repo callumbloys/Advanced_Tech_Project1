@@ -169,6 +169,8 @@ void Graphics::DrawTestTriangle(float angle, float x, float y, float z)
 			   dx::XMMatrixRotationZ(angle)*
 			   dx::XMMatrixRotationX(angle)*
 			   dx::XMMatrixTranslation(x, y ,z + 4.0f)*
+				GetCamera() *
+				GetProjection() *
 			   dx::XMMatrixPerspectiveLH(1.0f,3.0f / 7.0,0.5f,50.0f) // 4.0 (y) 
 			)
 		}
@@ -266,4 +268,23 @@ void Graphics::DrawTestTriangle(float angle, float x, float y, float z)
 	pContext->RSSetViewports(1u, &vp);
 
 	pContext->DrawIndexed((UINT)std::size(indices),0u,0u);
+}
+
+void Graphics::SetProjection(DirectX::FXMMATRIX proj) noexcept
+{
+	projection = proj;
+}
+
+DirectX::XMMATRIX Graphics::GetProjection() const noexcept
+{
+	return projection;
+}
+void Graphics::SetCamera(DirectX::FXMMATRIX cam) noexcept
+{
+	camera = cam;
+}
+
+DirectX::XMMATRIX Graphics::GetCamera() const noexcept
+{
+	return camera;
 }

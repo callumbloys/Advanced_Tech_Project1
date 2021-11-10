@@ -5,6 +5,7 @@
 #include "Graphics.h"
 #include <memory>
 #include "Mouse.h"
+#include "Keyboard.h"
 
 class Window
 {
@@ -31,6 +32,7 @@ public:
 	static std::optional<int> ProcessMessages();
 	Graphics& Gfx();
 	Mouse mouse;
+	Keyboard kbd;
 private:
 	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
