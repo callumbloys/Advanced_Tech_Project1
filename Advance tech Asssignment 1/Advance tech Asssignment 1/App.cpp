@@ -48,11 +48,15 @@ void App::DoFrame()
 		
 		if (map.get() == wall)
 		{
-			for (int i = 0; i < 4; i++)
-			{
-				wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 30.0f, column * 1.9 + 11.0f, 28.0f + (1.9f * i));
-			}
-		}		
+
+				wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 30.0f, 0.0f,column * 1.9 + 11.0f);
+			
+		}	
+		else
+		{
+			//wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 30.0f, 2.0f, column * 1.9 + 11.0f);
+			wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 30.0f, -2.0f, column * 1.9 + 11.0f);
+		}
 	}
 
 	map.close();
@@ -80,6 +84,14 @@ void App::DoFrame()
 	if (wnd.kbd.KeyIsPressed('F'))
 	{
 		cam.Translate({ 0.0f,-dt,0.0f });
+	}
+	if (wnd.kbd.KeyIsPressed('H'))
+	{
+		cam.Rotate(dt,0.0f);
+	}
+	if (wnd.kbd.KeyIsPressed('G'))
+	{
+		cam.Rotate(-dt, 0.0f);
 	}
 
 	wnd.Gfx().EndFrame();
