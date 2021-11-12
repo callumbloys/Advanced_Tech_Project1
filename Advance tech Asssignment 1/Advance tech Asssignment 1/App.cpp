@@ -2,6 +2,7 @@
 #include <sstream>
 #include <memory>
 #include <algorithm>
+#include <DirectXMath.h>
 
 namespace dx = DirectX;
 
@@ -10,6 +11,7 @@ App::App()
 	wnd(800,600,"Callum Bloys: Project Window")
 {
 	wnd.Gfx().SetProjection( dx::XMMatrixPerspectiveLH( 1.0f,9.0f / 16.0f,0.5f,40.0f ) );
+	std::vector<DirectX::XMFLOAT3>; 
 }
 
 int App::Go()
@@ -49,16 +51,20 @@ void App::DoFrame()
 		if (map.get() == wall)
 		{
 
-				wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 30.0f, 0.0f,column * 1.9 + 11.0f);
+				wnd.Gfx().DrawTestTriangle(row * 1.9f - 30.0f, 0.0f, column * 1.9f + 11.0f);
 			
 		}	
 		else
 		{
 			//wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 30.0f, 2.0f, column * 1.9 + 11.0f);
-			wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 30.0f, -2.0f, column * 1.9 + 11.0f);
+			wnd.Gfx().DrawTestTriangle(row * 1.9f - 30.0f, -2.0f, column * 1.9f + 11.0f);
 		}
 	}
-
+	/*for
+	{
+		DrawAnimatedRects(v.x, v.y, v.z)
+	}*/
+	
 	map.close();
 
 	if (wnd.kbd.KeyIsPressed('W'))
@@ -85,11 +91,11 @@ void App::DoFrame()
 	{
 		cam.Translate({ 0.0f,-dt,0.0f });
 	}
-	if (wnd.kbd.KeyIsPressed('H'))
+	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
 	{
 		cam.Rotate(dt,0.0f);
 	}
-	if (wnd.kbd.KeyIsPressed('G'))
+	if (wnd.kbd.KeyIsPressed(VK_LEFT))
 	{
 		cam.Rotate(-dt, 0.0f);
 	}
