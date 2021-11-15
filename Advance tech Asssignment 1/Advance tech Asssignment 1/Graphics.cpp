@@ -95,9 +95,6 @@ void Graphics::ClearBuffer(float red, float green, float blue) noexcept
 
 void Graphics::DrawTestTriangle(float x, float y, float z)
 {
-
-	HRESULT hr;
-
 	struct Vertex
 	{
 		struct
@@ -268,6 +265,11 @@ void Graphics::DrawTestTriangle(float x, float y, float z)
 	pContext->RSSetViewports(1u, &vp);
 
 	pContext->DrawIndexed((UINT)std::size(indices),0u,0u);
+}
+
+void Graphics::DrawIndexed(UINT count) noexcept
+{
+	pContext->DrawIndexed(count, 0u, 0u);
 }
 
 void Graphics::SetProjection(DirectX::FXMMATRIX proj) noexcept

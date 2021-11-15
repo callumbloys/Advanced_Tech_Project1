@@ -1,10 +1,8 @@
+Texture2D tex;
 
-cbuffer CBuf
-{
-	float4 face_colors[6];
-};
+SamplerState splr;
 
-float4 main(uint tid : SV_PrimitiveID) : SV_Target
+float4 main(float2 tc : TexCoord) : SV_Target
 {
-	return face_colors[tid / 2]; 
+	return tex.Sample(splr,tc);
 }
