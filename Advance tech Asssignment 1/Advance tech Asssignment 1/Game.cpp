@@ -1,20 +1,28 @@
-#include "App.h"
+#include "Game.h"
 #include <sstream>
 #include <memory>
 #include <algorithm>
 #include <DirectXMath.h>
+#include "Surface.h"
+#include "GDIPlusManager.h"
+#include "Math.h"
 
 namespace dx = DirectX;
 
-App::App()
+GDIPlusManager gdipm;
+
+Game::Game()
 	:
 	wnd(800,600,"Callum Bloys: Project Window")
 {
+
+	const auto	s = Surface::FromFile("Textures\\wall.jpg");
+
 	wnd.Gfx().SetProjection( dx::XMMatrixPerspectiveLH( 1.0f,9.0f / 16.0f,0.5f,40.0f ) );
 	std::vector<DirectX::XMFLOAT3>; 
 }
 
-int App::Go()
+int Game::Go()
 {
 	while(true)
 	{
@@ -26,7 +34,7 @@ int App::Go()
 	}
 }
 
-void App::DoFrame()
+void Game::DoFrame()
 {
 	const auto dt = timer.Mark() * speed_factor;
 	const float c = sin(timer.Peek()) / 2.0f + 0.5f;

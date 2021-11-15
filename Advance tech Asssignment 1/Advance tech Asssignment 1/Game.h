@@ -7,10 +7,10 @@
 #include "Camera.h"
 #include "Graphics.h"
 
-class App
+class Game
 {
 public:
-	App();
+	Game();
 	int Go();
 	Mouse mouse;
 private:

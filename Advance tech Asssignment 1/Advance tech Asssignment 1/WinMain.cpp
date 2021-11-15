@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include "Window.h"
-#include "App.h"
+#include "Game.h"
 
 int CALLBACK WinMain(
 	HINSTANCE hInstance,
@@ -8,5 +8,5 @@ int CALLBACK WinMain(
 	LPSTR     IpCmdLine,
 	int       nCmdShow)
 {
-	return App{}.Go();
+	return Game{}.Go();
 }
