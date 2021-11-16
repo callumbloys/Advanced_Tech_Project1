@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include "Bindable.h"
 #include <d3dcompiler.h>
 #include <sstream>
 #include <cmath>
@@ -44,9 +45,16 @@ Graphics::Graphics(HWND hWnd)
 	nullptr,
 	&pContext
 	);
-	wrl::ComPtr<ID3D11Resource> pBackBuffer;
-	pSwap->GetBuffer(0,__uuidof(ID3D11Resource),&pBackBuffer);
-	pDevice->CreateRenderTargetView(pBackBuffer.Get(),nullptr,&pTarget);
+
+	ID3D11Resource* pBackBuffer = nullptr;
+	pSwap->GetBuffer(0, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&pBackBuffer));
+	pDevice->CreateRenderTargetView
+	(
+		pBackBuffer,
+		nullptr,
+		&pTarget
+	);
+	pBackBuffer->Release();
 
 	D3D11_DEPTH_STENCIL_DESC dsDesc = {};
 	dsDesc.DepthEnable = TRUE;
@@ -144,6 +152,7 @@ void Graphics::DrawTestTriangle(float x, float y, float z)
 		0,4,2, 2,4,6,
 		0,1,4, 1,5,4
 	};
+
 	wrl::ComPtr<ID3D11Buffer> pIndexBuffer;
 	D3D11_BUFFER_DESC ibd = {};
 	ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
