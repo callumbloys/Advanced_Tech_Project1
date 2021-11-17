@@ -11,10 +11,10 @@ IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<unsigned short>& indic
 	ibd.StructureByteStride = sizeof(unsigned short); // Size of each index
 	D3D11_SUBRESOURCE_DATA subresourceData = {};
 	subresourceData.pSysMem = indices.data(); // Triangles to use
-	GetDevice(gfx)->CreateBuffer(&ibd, &subresourceData, &pIndexBuffer);
+	gfx.GetDevice()->CreateBuffer(&ibd, &subresourceData, &pIndexBuffer);
 }
 
 void IndexBuffer::Bind(Graphics& gfx) noexcept
 {
-	GetContext(gfx)->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
+	gfx.GetContext()->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
 }

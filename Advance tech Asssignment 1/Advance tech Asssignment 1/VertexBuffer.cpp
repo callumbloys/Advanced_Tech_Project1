@@ -11,17 +11,17 @@ VertexBuffer::VertexBuffer(Graphics& gfx, const std::vector<Vertex>& vertices) :
 	bufferDesc.StructureByteStride = sizeof(Vertex);
 	D3D11_SUBRESOURCE_DATA subresourceData = {};
 	subresourceData.pSysMem = vertices.data();
-	GetDevice(gfx)->CreateBuffer(&bufferDesc, &subresourceData, &pVertexBuffer);
+	gfx.GetDevice()->CreateBuffer(&bufferDesc, &subresourceData, &pVertexBuffer);
 }
 
 void VertexBuffer::Bind(Graphics& gfx)
 {
 	const UINT offset = 0u;
-	GetContext(gfx)->IASetVertexBuffers(
+	gfx.GetContext()->IASetVertexBuffers(
 		0U,
 		1U,
 		pVertexBuffer.GetAddressOf(),
 		&stride,
 		&offset
 	);
-}
+} 

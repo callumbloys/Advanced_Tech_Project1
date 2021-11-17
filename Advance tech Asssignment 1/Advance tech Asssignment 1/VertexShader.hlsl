@@ -1,43 +1,43 @@
-cbuffer CBuf
+//cbuffer CBuf
+//{
+//	matrix transform;
+//};
+//
+//float4 main(float3 pos : Position) : SV_Position
+//{
+//	return mul(float4(pos,1.0f),transform);
+//}
+
+cbuffer simpleConstantBuffer : register(b0)
 {
-	matrix transform;
+    matrix model;
+    matrix view;
+    matrix projection;
 };
 
-float4 main(float3 pos : Position) : SV_Position
+struct VertexShaderInput
 {
-	return mul(float4(pos,1.0f),transform);
-}
+    float3 pos : POSITION;
+    float2 tex : TEXCOORD;
+};
 
-//cbuffer simpleConstantBuffer : register(b0)
-//{
-//    matrix model;
-//    matrix view;
-//    matrix projection;
-//};
-//
-//struct VertexShaderInput
-//{
-//    float3 pos : POSITION;
-//    float2 tex : TEXCOORD;
-//};
-//
-//struct PixelShaderInput
-//{
-//    float4 pos : SV_POSITION;
-//    float2 tex : TEXCOORD;
-//};
-//
-//PixelShaderInput main(VertexShaderInput input)
-//{
-//    PixelShaderInput vertexShaderOutput;
-//    float4 pos = float4(input.pos, 1.0f);
-//
-//    // Transform the vertex position into projection space.
-//    pos = mul(pos, model);
-//    pos = mul(pos, view);
-//    pos = mul(pos, projection);
-//    vertexShaderOutput.pos = pos;
-//    vertexShaderOutput.tex = input.tex;
-//
-//    return vertexShaderOutput;
-//}
+struct PixelShaderInput
+{
+    float4 pos : SV_POSITION;
+    float2 tex : TEXCOORD;
+};
+
+PixelShaderInput main(VertexShaderInput input)
+{
+    PixelShaderInput vertexShaderOutput;
+    float4 pos = float4(input.pos, 1.0f);
+
+    // Transform the vertex position into projection space.
+    pos = mul(pos, model);
+    pos = mul(pos, view);
+    pos = mul(pos, projection);
+    vertexShaderOutput.pos = pos;
+    vertexShaderOutput.tex = input.tex;
+
+    return vertexShaderOutput;
+}

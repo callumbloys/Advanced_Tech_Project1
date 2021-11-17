@@ -48,9 +48,6 @@
     <ClCompile Include="TextureSampler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bindable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TextureLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -67,9 +64,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IndexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BindableBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">

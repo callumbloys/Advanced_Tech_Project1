@@ -1,4 +1,5 @@
 #include "Cube.h"
+#include "Graphics.h"
 #include "Bindable.h"
 #include "BindableBase.h"
 #include <memory>
@@ -53,6 +54,6 @@ Cube::Cube(Graphics& gfx, float sizeX, float sizeY, float sizeZ, float offsetX, 
 void Cube::Draw(Graphics& gfx)
 {
     Drawable::Draw(gfx);
-    SetModelMatrix(transform);
-    GetContext(gfx)->DrawIndexed(36U, 0U, 0U);
+    gfx.SetModelMatrix(transform);
+    gfx.GetContext()->DrawIndexed(36U, 0U, 0U);
 }

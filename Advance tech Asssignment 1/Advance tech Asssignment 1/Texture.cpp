@@ -2,14 +2,14 @@
 #include "TextureLoader.h"
 Texture::Texture(Graphics& gfx, const std::wstring& filepath)
 {
-	auto result = DirectX::CreateWICTextureFromFile(GetDevice(gfx), filepath.c_str(), NULL, &shaderResourceView);
+	auto result = DirectX::CreateWICTextureFromFile(gfx.GetDevice(), filepath.c_str(), NULL, &shaderResourceView);
 	assert(SUCCEEDED(result));
 
 }
 
 void Texture::Bind(Graphics& gfx)
 {
-	GetContext(gfx)->PSSetShaderResources
+	gfx.GetContext()->PSSetShaderResources
 	(
 		0U,
 		1U,
