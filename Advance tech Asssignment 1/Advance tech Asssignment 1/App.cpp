@@ -15,7 +15,42 @@ App::App()
 	wnd(800,600,"Callum Bloys: Project Window")
 {
 	wnd.Gfx().SetProjection( dx::XMMatrixPerspectiveLH( 1.0f,9.0f / 16.0f,0.5f,40.0f ) );
-	std::vector<DirectX::XMFLOAT3>; 
+
+	std::ifstream map;
+	map.open("Level1.txt");
+	char wall = '#';
+	int row = 0;
+	int column = 0;
+
+	while (!map.eof())
+	{
+		row++;
+		if (row == 31)
+		{
+			column--;
+			row = 0;
+		}
+
+		if (map.get() == wall)
+		{
+
+			cubes.push_back(std::make_unique<Cube>(wnd.Gfx(), 1.0f, 1.0f, 1.0f, row * 1.9f - 30.0f, 0.0f, column * 1.9f + 11.0f));
+
+		}
+		else
+		{
+			cubes.push_back(std::make_unique<Cube>(wnd.Gfx(), 1.0f, 1.0f, 1.0f, row * 1.9f - 30.0f, 2.0f, column * 1.9 + 11.0f));
+			cubes.push_back(std::make_unique<Cube>(wnd.Gfx(), 1.0f, 1.0f, 1.0f, row * 1.9f - 30.0f, -2.0f, column * 1.9f + 11.0f));
+		}
+	}
+	/*for
+	{
+		DrawAnimatedRects(v.x, v.y, v.z)
+	}*/
+
+	map.close();
+	//std::vector<DirectX::XMFLOAT3>; 
+
 }
 
 int App::Go()
@@ -36,40 +71,6 @@ void App::DoFrame()
 	const float c = sin(timer.Peek()) / 2.0f + 0.5f;
 	wnd.Gfx().ClearBuffer(.2f, .2f, .255f);
 	wnd.Gfx().SetCamera(cam.GetMatrix());
-
-	std::ifstream map;
-	map.open("Level1.txt");
-	char wall = '#';
-	int row = 0;
-	int column = 0;
-
-	while (!map.eof())
-	{
-		row++; 
-		if (row == 31)
-		{ 
-			column--;
-			row = 0;
-		}
-		
-		if (map.get() == wall)
-		{
-
-				wnd.Gfx().DrawTestTriangle(row * 1.9f - 30.0f, 0.0f, column * 1.9f + 11.0f);
-			
-		}	
-		else
-		{
-			//wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 30.0f, 2.0f, column * 1.9 + 11.0f);
-			wnd.Gfx().DrawTestTriangle(row * 1.9f - 30.0f, -2.0f, column * 1.9f + 11.0f);
-		}
-	}
-	/*for
-	{
-		DrawAnimatedRects(v.x, v.y, v.z)
-	}*/
-	
-	map.close();
 
 	if (wnd.kbd.KeyIsPressed('W'))
 	{
@@ -102,6 +103,11 @@ void App::DoFrame()
 	if (wnd.kbd.KeyIsPressed(VK_LEFT))
 	{
 		cam.Rotate(-dt, 0.0f);
+	}
+
+	for (auto& drawable : cubes)
+	{
+		drawable->Draw(wnd.Gfx());
 	}
 
 	wnd.Gfx().EndFrame();

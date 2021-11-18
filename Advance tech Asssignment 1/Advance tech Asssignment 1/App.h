@@ -5,7 +5,9 @@
 #include "Graphics.h"
 #include <fstream>
 #include "Camera.h"
-#include "Graphics.h"
+//#include "Graphics.h"
+//#include "Drawable.h"
+#include "Cube.h"
 
 class App
 {
@@ -20,5 +22,7 @@ private:
 	Window wnd;
 	Timer timer;
 	Camera cam;
+
+	std::vector<std::unique_ptr<Drawable>> cubes; 
 	float speed_factor = 1.0f;
 };

@@ -47,7 +47,7 @@ Cube::Cube(Graphics& gfx, float sizeX, float sizeY, float sizeZ, float offsetX, 
             16, 18, 17, 17, 18, 19,
             20, 21, 22, 22, 21, 23
     }));
-    AddBind(std::make_unique<Texture>(gfx, L"Wall.jpg"));
+    AddBind(std::make_unique<Texture>(gfx, L"wall.jpg"));
     AddBind(std::make_unique<TextureSampler>(gfx));
 }
 
