@@ -57,7 +57,7 @@ void App::DoFrame()
 		else
 		{
 			//wnd.Gfx().DrawTestTriangle(0, row * 1.9f - 30.0f, 2.0f, column * 1.9 + 11.0f);
-			wnd.Gfx().DrawTestTriangle(row * 1.9f - 30.0f, -2.0f, column * 1.9f + 11.0f);
+			//wnd.Gfx().DrawTestTriangle(row * 1.9f - 30.0f, -2.0f, column * 1.9f + 11.0f);
 		}
 	}
 	/*for
