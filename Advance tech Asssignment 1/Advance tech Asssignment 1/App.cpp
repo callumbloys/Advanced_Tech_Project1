@@ -83,14 +83,14 @@ void App::DoFrame()
 	{
 		cam.Translate({ dt,0.0f,0.0f });
 	}
-	if (wnd.kbd.KeyIsPressed('R'))
-	{
-		cam.Translate({ 0.0f,dt,0.0f });
-	}
-	if (wnd.kbd.KeyIsPressed('F'))
-	{
-		cam.Translate({ 0.0f,-dt,0.0f });
-	}
+	//if (wnd.kbd.KeyIsPressed('R'))
+	//{
+	//	cam.Translate({ 0.0f,dt,0.0f });
+	//}
+	//if (wnd.kbd.KeyIsPressed('F'))
+	//{
+	//	cam.Translate({ 0.0f,-dt,0.0f });
+	//}
 	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
 	{
 		cam.Rotate(dt,0.0f);
@@ -98,6 +98,14 @@ void App::DoFrame()
 	if (wnd.kbd.KeyIsPressed(VK_LEFT))
 	{
 		cam.Rotate(-dt, 0.0f);
+	}
+	if (wnd.kbd.KeyIsPressed(VK_DOWN))
+	{
+		cam.Rotate(0.0f, dt);
+	}
+	if (wnd.kbd.KeyIsPressed(VK_UP))
+	{
+		cam.Rotate(0.0f, -dt);
 	}
 
 	wnd.Gfx().EndFrame();
